@@ -42,11 +42,14 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::prefix('menu')->group(function () {
     Route::get('/', [MenuController::class, 'list'])->name('menu.list');
 
-    Route::get('/edit', [MenuController::class, 'viewEdit']);
-    Route::post('/edit', [MenuController::class, 'submitEdit']);
+    Route::get('/add', [MenuController::class, 'viewAdd'])->name('menu.add.form');
+    Route::post('/add', [MenuController::class, 'submitAdd'])->name('menu.add.submit');
 
-    Route::post('/delete', [MenuController::class, 'delete']);
-    Route::post('/restore', [MenuController::class, 'delete']);
+    Route::get('/edit', [MenuController::class, 'viewEdit'])->name('menu.edit.form');
+    Route::post('/edit', [MenuController::class, 'submitEdit'])->name('menu.edit.submit');
+
+    Route::post('/{id}/delete', [MenuController::class, 'delete'])->name('menu.delete');
+    Route::post('/{id}/restore', [MenuController::class, 'delete'])->name('menu.restore');
 });
 
 

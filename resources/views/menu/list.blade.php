@@ -8,10 +8,11 @@
 @section('web-content')
 <div class="container-fluid">
     <h1 class="mt-4">Daftar Menu</h1>
-    {{-- <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active"><a href="{{ route('menu.list') }}">Menu</a></li>
-    </ol> --}}
-    <div class="card my-4">
+    <ol class="breadcrumb mb-4">
+        {{-- <li class="breadcrumb-item"><a href="{{ route('menu.list') }}">Menu</a></li> --}}
+        <li class="breadcrumb-item active">Menu</li>
+    </ol>
+    <div class="card mb-4">
         <div class="card-body">
             Squee Steak menyediakan berbagai macam menu steaks, hidangan pendamping dan minuman.
         </div>

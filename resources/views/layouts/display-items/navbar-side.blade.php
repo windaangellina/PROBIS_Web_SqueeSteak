@@ -24,7 +24,7 @@
                             <a class="nav-link  {{ (request()->is('/menu')) ? 'active' : '' }}" href="{{ route('menu.list') }}">
                                 Daftar Menu
                             </a>
-                            <a class="nav-link {{ (request()->is('/menu/add')) ? 'active' : '' }}" href="#">Tambah Menu</a>
+                            <a class="nav-link {{ (request()->is('/menu/add')) ? 'active' : '' }}" href="{{ route('menu.add.form') }}">Tambah Menu</a>
                         </nav>
                     </div>
                 @endif
@@ -64,11 +64,11 @@
                 {{-- others --}}
                 @if (session('role_aktif') == 1)
                     <div class="sb-sidenav-menu-heading">Lainnya</div>
-                    <a class="nav-link" href="charts.html">
+                    <a class="nav-link" href="{{ route('admin.history') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
                         Riwayat Edit Menu
                     </a>
-                    <a class="nav-link" href="charts.html">
+                    <a class="nav-link" href="{{ route('admin.setting') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
                         Pengaturan
                     </a>
