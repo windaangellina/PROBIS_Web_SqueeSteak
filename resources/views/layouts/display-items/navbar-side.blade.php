@@ -2,100 +2,88 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link active" href="index.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Dashboard
-                </a>
-                <div class="sb-sidenav-menu-heading">Staff Menu</div>
+                @if (session('role_aktif') == 1)
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <a class="nav-link {{ (request()->is('/dashboard')) ? 'active' : '' }}" href="{{ route('admin.home') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+                @endif
+
+                {{-- MENU PEGAWAI --}}
+                <div class="sb-sidenav-menu-heading">Menu Pegawai</div>
                 {{-- menu --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Menu
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Add</a>
-                        <a class="nav-link" href="#">Edit</a>
-                        <a class="nav-link" href="#">Delete</a>
-                    </nav>
-                </div>
+                @if (session('role_aktif') == 1)
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsMenu" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Menu
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayoutsMenu" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link  {{ (request()->is('/menu')) ? 'active' : '' }}" href="{{ route('menu.list') }}">
+                                Daftar Menu
+                            </a>
+                            <a class="nav-link {{ (request()->is('/menu/add')) ? 'active' : '' }}" href="#">Tambah Menu</a>
+                        </nav>
+                    </div>
+                @endif
+
                 {{-- food orders --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsFoodOrder" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Food Orders
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseLayoutsFoodOrder" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Ongoing Orders</a>
-                        <a class="nav-link" href="#">Processed Orders</a>
-                    </nav>
-                </div>
+                @if (session('role_aktif') == 1 || session('role_aktif') == 3)
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsFoodOrder" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
+                        Pesanan Makanan
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayoutsFoodOrder" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link {{ (request()->is('/food-order/ongoing')) ? 'active' : '' }}" href="{{ route('foodorder.list', ['status' => 'ongoing']) }}">Sedang diproses</a>
+                            <a class="nav-link  {{ (request()->is('/food-order/done')) ? 'active' : '' }}" href="{{ route('foodorder.list', ['status' => 'done']) }}">Sudah selesai</a>
+                        </nav>
+                    </div>
+                @endif
+
                 {{-- customer orders --}}
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsCustOrder" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Customer Orders
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseLayoutsCustOrder" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="#">Ongoing Bills</a>
-                        <a class="nav-link" href="#">Confirmed Bills</a>
-                        <a class="nav-link" href="#">Closed Bills</a>
-                    </nav>
-                </div>
+                @if (session('role_aktif') == 1 || session('role_aktif') == 2)
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsCustOrder" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                        Pesanan Pelanggan
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayoutsCustOrder" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link {{ (request()->is('/customer-order/ongoing')) ? 'active' : '' }}" href="{{ route('custorder.list', ['status' => 'ongoing']) }}">Sedang berlangsung</a>
+                            <a class="nav-link {{ (request()->is('/customer-order/done')) ? 'active' : '' }}" href="{{ route('custorder.list', ['status' => 'done']) }}">Sudah selesai</a>
+                            <a class="nav-link {{ (request()->is('/customer-order/closed')) ? 'active' : '' }}" href="{{ route('custorder.list', ['status' => 'closed']) }}" href="#">Sudah dibayar</a>
+                        </nav>
+                    </div>
+                @endif
 
-
-                {{-- misc --}}
-                {{-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Pages
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Authentication
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="#">Login</a>
-                                <a class="nav-link" href="#">Register</a>
-                                <a class="nav-link" href="#">Forgot Password</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                            Error
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="401.html">401 Page</a>
-                                <a class="nav-link" href="404.html">404 Page</a>
-                                <a class="nav-link" href="500.html">500 Page</a>
-                            </nav>
-                        </div>
-                    </nav>
-                </div> --}}
 
                 {{-- others --}}
-                <div class="sb-sidenav-menu-heading">Others</div>
-                <a class="nav-link" href="charts.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Settings
-                </a>
-                {{-- <a class="nav-link" href="tables.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
-                </a> --}}
+                @if (session('role_aktif') == 1)
+                    <div class="sb-sidenav-menu-heading">Lainnya</div>
+                    <a class="nav-link" href="charts.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
+                        Riwayat Edit Menu
+                    </a>
+                    <a class="nav-link" href="charts.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
+                        Pengaturan
+                    </a>
+                @endif
             </div>
         </div>
         <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            Start Bootstrap
+            <div class="small">Masuk sebagai :</div>
+            @if (session('role_aktif') == 1)
+                (Admin) {{ strtolower(session('username_aktif')) }}
+            @elseif(session('role_aktif') == 2)
+                (Cashier) {{ strtolower(session('username_aktif')) }}
+            @elseif(session('role_aktif') == 3)
+                (Chef) {{ strtolower(session('username_aktif')) }}
+            @endif
         </div>
     </nav>
 </div>

@@ -24,6 +24,11 @@
 					</span>
 				</div>
 
+                <div class="container w-75 align-middle mt-3 mb-0" data-validate="Username is required">
+                    {{-- alert --}}
+                    @include('layouts.display-items.alert')
+                </div>
+
 				<form class="login100-form validate-form" method="POST" action="{{ url('login') }}">
                     @csrf
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
@@ -31,30 +36,36 @@
 						<input class="input100" type="text" name="username" placeholder="Enter username">
 						<span class="focus-input100"></span>
 					</div>
+                    @error('username')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
 						<input class="input100" type="password" name="pass" placeholder="Enter password">
 						<span class="focus-input100"></span>
 					</div>
+                    @error('pass')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
 
-					<div class="flex-sb-m w-full p-b-30">
+					{{-- <div class="flex-sb-m w-full p-b-30">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" value="yes">
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
 						</div>
 
-						{{-- <div>
+						<div>
 							<a href="#" class="txt1">
 								Forgot Password?
 							</a>
-						</div> --}}
-					</div>
+						</div>
+					</div> --}}
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">
+						<button class="login100-form-btn mx-auto" type="submit">
 							Login
 						</button>
 					</div>
