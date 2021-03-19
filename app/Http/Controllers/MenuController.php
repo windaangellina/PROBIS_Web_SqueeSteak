@@ -38,5 +38,7 @@ class MenuController extends Controller
         $menu->id_admin = $request->session()->get('id_aktif');
         $menu->nama = $input['nama'];
         $menu->harga = $input['harga'];
+
+        //foto
     }
 }
