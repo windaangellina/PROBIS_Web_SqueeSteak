@@ -1,23 +1,23 @@
 @extends('layouts.layout-master')
 
 @section('web-title')
-    Tambah Menu Baru
+    Edit Menu
 @endsection
 
 
 @section('web-content')
 <div class="container-fluid">
-    <h1 class="mt-4">Tambah Menu Baru</h1>
+    <h1 class="mt-4">Edit Menu</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('menu.list') }}">Menu</a></li>
-        <li class="breadcrumb-item active">Tambah Menu</li>
+        <li class="breadcrumb-item active">Edit Menu</li>
     </ol>
 </div>
 {{-- alert --}}
 <div class="container-fluid mb-4">
     @include('layouts.display-items.alert')
 </div>
-<div class="container my-4">
+<div class="container my-5">
     {{-- form --}}
     <form method="POST" enctype="multipart/form-data">
         @csrf
@@ -25,14 +25,14 @@
         <div class="row mt-4">
             <div class="col-12 text-center" style="width: 17em; height: 17em;">
                 {{-- <img id="fotoMenu" class="img-responsive w-25 border border-dark" src="{{ asset('assets/img/no-image.jpg') }}" style="min-width: 200px; max-width: 300px; min-height: 200px; max-height: 300px;"> --}}
-                <img id="fotoMenu" class="img-responsive w-25 border border-dark" src="{{ asset('assets/img/no-image.jpg') }}" style="object-fit: cover; width: 300px; height: 300px;">
+                <img id="fotoMenu" class="img-responsive w-25 border border-dark" src="{{ asset('storage/res/' . $dataMenu->kategori->folder . '/' . $dataMenu->url_foto_menu) }}" style="object-fit: cover; width: 300px; height: 300px;">
             </div>
         </div>
 
         {{-- isi form --}}
         <div class="form-group my-4">
             <label>Foto menu</label>
-            <input id="inputFileFotoMenu" type="file" name="picture" required class="form-control my-2">
+            <input id="inputFileFotoMenu" type="file" name="picture" class="form-control my-2">
         </div>
         <div class="my-4 text-danger text-left">
             @error('picture')
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group my-4">
             <label>Nama</label>
-            <input type="text" name="nama" class="form-control my-2" value="{{ old('nama') }}" placeholder="Steak ...">
+            <input type="text" name="nama" class="form-control my-2" value="{{ $dataMenu->nama }}" placeholder="Steak ...">
         </div>
         <div class="my-4 text-danger text-left">
             @error('nama')
@@ -53,7 +53,8 @@
             <select name="kategori" required class="form-control">
                 @if (isset($dataKategori) && count($dataKategori) > 0)
                     @foreach ($dataKategori as $category)
-                        <option value="{{ $category->id }}">
+                        <option value="{{ $category->id }}"
+                            {{ $dataMenu->kategori->id == $category->id ? 'selected' : '' }}>
                             {{ $category->nama }}
                         </option>
                     @endforeach
@@ -62,7 +63,7 @@
         </div>
         <div class="form-group my-4">
             <label>Harga</label>
-            <input type="number" name="harga" class="form-control my-2" value="{{ old('harga') }}" placeholder="88000">
+            <input type="number" name="harga" class="form-control my-2" value="{{ $dataMenu->harga }}" placeholder="88000">
         </div>
         <div class="my-4 text-danger text-left">
             @error('harga')
@@ -72,7 +73,7 @@
         <div class="form-group my-4">
             <label>Deskripsi</label>
             <textarea name="deskripsi" class="form-control my-2" rows="5"
-                style="resize: none">{{ old('deskripsi') }}</textarea>
+                style="resize: none">{{ $dataMenu->deskripsi }}</textarea>
         </div>
         <button type="submit" class="btn btn-dark mb-4 float-right">
             Simpan

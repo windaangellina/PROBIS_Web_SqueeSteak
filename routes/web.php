@@ -45,27 +45,47 @@ Route::prefix('menu')->group(function () {
     Route::get('/add', [MenuController::class, 'viewAdd'])->name('menu.add.form');
     Route::post('/add', [MenuController::class, 'submitAdd'])->name('menu.add.submit');
 
-    Route::get('/edit', [MenuController::class, 'viewEdit'])->name('menu.edit.form');
-    Route::post('/edit', [MenuController::class, 'submitEdit'])->name('menu.edit.submit');
+    Route::prefix('{id}')->group(function () {
+        Route::get('/edit', [MenuController::class, 'viewEdit'])->name('menu.edit.form');
+        Route::post('/edit', [MenuController::class, 'submitEdit'])->name('menu.edit.submit');
 
-    Route::post('/{id}/delete', [MenuController::class, 'delete'])->name('menu.delete');
-    Route::post('/{id}/restore', [MenuController::class, 'delete'])->name('menu.restore');
+        Route::post('/delete', [MenuController::class, 'delete'])->name('menu.delete');
+        Route::post('/restore', [MenuController::class, 'restore'])->name('menu.restore');
+    });
 });
 
 
 // ROUTING FOOD ORDER / PESANAN MAKANAN
 Route::prefix('food-order')->group(function () {
     Route::get('/{status}', [FoodOrderController::class, 'list'])->name('foodorder.list');
+
+    Route::prefix('{id}')->group(function () {
+        Route::post('/done', [FoodOrderController::class, 'foodPrepared'])->name('foodorder.foodPrepared');
+    });
+
 });
 
 
 // ROUTING CUSTOMER ORDER / PESANAN PELANGGAN
 Route::prefix('customer-order')->group(function () {
     Route::get('/{status}', [CustomerOrderController::class, 'list'])->name('custorder.list');
+
+    Route::prefix('{id}')->group(function () {
+        Route::get('/detail', [CustomerOrderController::class, 'detail'])
+            ->name('custorder.detail');
+        Route::post('/confirm-payment', [CustomerOrderController::class, 'confirmPayment'])
+            ->name('custorder.confirmpayment');
+
+        //semua pesanan di order ini sudah selesai disiapkan semua
+        Route::post('/done-all', [FoodOrderController::class, 'foodPreparedAll'])
+            ->name('foodorder.foodPreparedAll');
+    });
 });
 
 
 // ROUTING ADMIN
 Route::get('dashboard', [AppController::class, 'dashboard'])->name('admin.home');
-Route::get('setting', [AppController::class, 'setting'])->name('admin.setting');
 Route::get('history', [AppController::class, 'history'])->name('admin.history');
+
+Route::get('setting', [AppController::class, 'settingView'])->name('admin.setting.view');
+Route::post('setting', [AppController::class, 'settingSubmit'])->name('admin.setting.submit');

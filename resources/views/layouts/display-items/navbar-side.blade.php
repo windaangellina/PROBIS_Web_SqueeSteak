@@ -39,7 +39,7 @@
                     <div class="collapse" id="collapseLayoutsFoodOrder" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link {{ (request()->is('/food-order/ongoing')) ? 'active' : '' }}" href="{{ route('foodorder.list', ['status' => 'ongoing']) }}">Sedang diproses</a>
-                            <a class="nav-link  {{ (request()->is('/food-order/done')) ? 'active' : '' }}" href="{{ route('foodorder.list', ['status' => 'done']) }}">Sudah selesai</a>
+                            <a class="nav-link  {{ (request()->is('/food-order/all')) ? 'active' : '' }}" href="{{ route('foodorder.list', ['status' => 'all']) }}">Semua Pesanan</a>
                         </nav>
                     </div>
                 @endif
@@ -63,15 +63,15 @@
 
                 {{-- others --}}
                 @if (session('role_aktif') == 1)
-                    <div class="sb-sidenav-menu-heading">Lainnya</div>
-                    <a class="nav-link" href="{{ route('admin.history') }}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
-                        Riwayat Edit Menu
-                    </a>
-                    <a class="nav-link" href="{{ route('admin.setting') }}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
-                        Pengaturan
-                    </a>
+                <div class="sb-sidenav-menu-heading">Lainnya</div>
+                {{-- <a class="nav-link" href="{{ route('admin.history') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
+                    Log Aktivitas
+                </a> --}}
+                <a class="nav-link" href="{{ route('admin.setting.view') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
+                    Pengaturan
+                </a>
                 @endif
             </div>
         </div>
