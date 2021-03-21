@@ -137,6 +137,13 @@
                                                                         </div>
                                                                     @endif
                                                                 </div>
+                                                                @if ($detail->keterangan != null)
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5 col-md-6 col-xl-7">
+                                                                            <p class="ml-2 font-italic text-muted">{{ $detail->keterangan }}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
                                                             </li>
                                                         @endif
                                                     @endforeach
