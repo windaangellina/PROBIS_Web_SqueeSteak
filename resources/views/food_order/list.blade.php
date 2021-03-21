@@ -64,7 +64,11 @@
                             Detail Pesanan Per Order
                         </div>
                         <div class="card-body">
-                            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                            @if ($status == 'ongoing')
+                                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                            @else
+                                <div class="row row-cols-1 row-cols-md-3 row-cols-xl-4">
+                            @endif
                                 @foreach ($dataPesanan as $pesanan)
                                     <div class="col mb-4">
                                         <div class="card" style="min-height: 15rem;">
@@ -113,7 +117,7 @@
                                                                                     </button>
                                                                                 </form>
                                                                             @elseif ($status == 'all')
-                                                                                <button class="btn btn-secondary">
+                                                                                <button class="btn btn-secondary" disabled>
                                                                                     <i class="fas fa-spinner"></i>
                                                                                 </button>
                                                                             @endif

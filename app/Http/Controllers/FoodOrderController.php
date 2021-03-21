@@ -77,7 +77,7 @@ class FoodOrderController extends Controller
 
     public function foodPreparedAll($idHeaderOrder){
         $header = HeaderOrder::find($idHeaderOrder);
-        $result = false;
+        $result = true;
         $errMsg = '';
 
         if ($header == null) {
@@ -105,8 +105,8 @@ class FoodOrderController extends Controller
 
         if ($result) {
             return redirect()->back()
-                ->with('success', 'Berhasil mengganti status pesanan menu Meja '.
-                    $header->nomor_meja . ' - ' . $detail->menu->nama);
+                ->with('success', 'Berhasil mengganti status semua pesanan menu MEJA '.
+                    $header->nomor_meja . ' menjadi sudah selesai disiapkan');
         }
         else{
             return redirect()->back()
