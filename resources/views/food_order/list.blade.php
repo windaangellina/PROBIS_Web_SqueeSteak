@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <div class="col-12 text-center">
-                    <img src="{{ asset('assets/img/chef-thumbs-up.png') }}" class="img-fluid w-25" alt="">
+                    <img src="{{ asset('assets/img/misc/chef-thumbs-up.png') }}" class="img-fluid w-25" alt="">
                 </div>
             </div>
         @else
