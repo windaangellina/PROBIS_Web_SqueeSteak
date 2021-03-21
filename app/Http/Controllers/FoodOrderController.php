@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailOrder;
 use App\Models\HeaderOrder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
+use stdClass;
 
 class FoodOrderController extends Controller
 {
@@ -25,9 +26,31 @@ class FoodOrderController extends Controller
         }
 
         //pass data header yang sedang makan
-        $dataHeader = HeaderOrder::orderBy('created_at', 'ASC')
+        $dataHeaderAll = HeaderOrder::orderBy('created_at', 'ASC')
             ->where('status_order', '=', 1)
+            ->with('details')
             ->get();
+
+        //empty eloquent collection dari HeaderOrder
+        $dataHeaderPerluDisiapkan = collect(new HeaderOrder());
+
+        foreach ($dataHeaderAll as $key => $header) {
+            $tmpDetails = $header->details()->where('status_diproses', '=', 1)->get();
+            if (count($tmpDetails) > 0) {
+                $dataHeaderPerluDisiapkan->add($header);
+            }
+        }
+
+        //display
+        $dataHeader = collect(new HeaderOrder());
+        if ($status == "ongoing") {
+            $dataHeader = $dataHeaderPerluDisiapkan;
+        }
+        else{
+            $dataHeader = $dataHeaderAll;
+        }
+
+        // dd($dataHeader);
 
         //mendapatkan semua details dari h_order
         $dataDetails = $dataHeader->pluck('details')->flatten();
@@ -41,8 +64,6 @@ class FoodOrderController extends Controller
         }
 
         // dd($dataMenuPesanan);
-
-
         return view('food_order.list', [
             'dataPesanan'       => $dataHeader,
             'dataMenuPesanan'   => $dataMenuPesanan,

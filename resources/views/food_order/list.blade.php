@@ -9,13 +9,26 @@
 <div class="container-fluid mb-4">
     <h1 class="mt-4">{{ $title }}</h1>
 </div>
-<div class="container-fluid mb-4">
+<div class="container-fluid">
     @include('layouts.display-items.alert')
 </div>
 <div class="container-fluid mb-4">
     @isset($dataPesanan)
         @if (count($dataPesanan) == 0)
-            <h5 class="my-4">Semua Pesanan Menu Sudah Selesai Disiapkan</h5>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            Semua Pesanan Menu Sudah Selesai Disiapkan
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img src="{{ asset('assets/img/chef-thumbs-up.png') }}" class="img-fluid w-25" alt="">
+                </div>
+            </div>
         @else
             <div class="row">
                 {{-- table summary jumlah menu yang perlu disiapkan. tampilkan kalo menu ongoing --}}

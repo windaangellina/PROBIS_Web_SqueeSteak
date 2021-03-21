@@ -107,12 +107,15 @@
                     <tbody>
                         @isset($dataPesanan)
                             @foreach ($dataPesanan->details as $pesanan)
-                                <tr>
-                                    <td>{{ $pesanan->menu->nama }}</td>
-                                    <td class="text-right">{{ number_format($pesanan->harga == null ? 0 : $pesanan->harga,0,",",".")  }}</td>
-                                    <td>{{ $pesanan->jumlah }}</td>
-                                    <td class="text-right">{{ number_format($pesanan->subtotal == null ? 0 : $pesanan->subtotal,0,",",".")  }}</td>
-                                </tr>
+                                {{-- tampilkan pesanan yang sudah dicheck out aja --}}
+                                @if ($pesanan->status_diproses != 0)
+                                    <tr>
+                                        <td>{{ $pesanan->menu->nama }}</td>
+                                        <td class="text-right">{{ number_format($pesanan->harga == null ? 0 : $pesanan->harga,0,",",".")  }}</td>
+                                        <td>{{ $pesanan->jumlah }}</td>
+                                        <td class="text-right">{{ number_format($pesanan->subtotal == null ? 0 : $pesanan->subtotal,0,",",".")  }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         @endisset
                     </tbody>
