@@ -38,7 +38,7 @@ Route::middleware('haruslogin')->group(function () {
     Route::get('/', [LoginController::class, 'redirectLogin'])->name('home');
 
     // LOG OUT
-    Route::get('/logout', [LoginController::class, 'logout']);
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 
