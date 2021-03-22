@@ -50,4 +50,6 @@ class AppController extends Controller
     public function permissionDenied(){
         return view('errors.permission-denied');
     }
+
+
 }
