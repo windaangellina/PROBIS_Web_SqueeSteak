@@ -17,7 +17,9 @@ class HarusLoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Session::has('id_aktif') == false) {
+        if ($request->session()->has('id_aktif') == false ||
+            $request->session()->has('username_aktif') == false ||
+            $request->session()->has('role_aktif') == false) {
             return redirect()->route('login')
                 ->with('error', 'Silahkan login terlebih dahulu');
         }

@@ -48,7 +48,7 @@
                 {{ $message }}
             @enderror
         </div>
-        <div class="form-group my-4">
+        {{-- <div class="form-group my-4">
             <label>Kategori</label>
             <select name="kategori" required class="form-control">
                 @if (isset($dataKategori) && count($dataKategori) > 0)
@@ -60,7 +60,7 @@
                     @endforeach
                 @endif
             </select>
-        </div>
+        </div> --}}
         <div class="form-group my-4">
             <label>Harga</label>
             <input type="number" name="harga" class="form-control my-2" value="{{ $dataMenu->harga }}" placeholder="88000">

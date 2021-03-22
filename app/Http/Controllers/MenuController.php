@@ -120,13 +120,11 @@ class MenuController extends Controller
         $input = $request->validate([
             'picture'   => 'mimes:jpeg,jpg,png,bmp,tiff |max:4096',
             'nama'      => 'required',
-            'kategori'  => 'required',
             'harga'     => 'required',
         ], $customMessages);
 
         //edit menu
         $menu = Menu::find($idMenu);
-        $menu->id_kategori = $input['kategori'];
         $menu->id_admin = $request->session()->get('id_aktif');
         $menu->nama = $input['nama'];
         $menu->harga = $input['harga'];

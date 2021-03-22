@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     public function viewLogin(){
+        Session::flush();
         return view('login');
     }
 
@@ -39,9 +41,11 @@ class LoginController extends Controller
 
     public function logout(Request $request){
         // reset session
-        $request->session()->forget('id_aktif');
-        $request->session()->forget('username_aktif');
-        $request->session()->forget('role_aktif');
+        // $request->session()->forget('id_aktif');
+        // $request->session()->forget('username_aktif');
+        // $request->session()->forget('role_aktif');
+
+        Session::flush();
 
         return redirect()->route('login');
     }
