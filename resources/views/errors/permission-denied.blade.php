@@ -28,11 +28,11 @@
 @endsection
 
 
-@section('js')
+@push('js')
     <script>
         $(document).ready(function(){
             console.log('replace');
             window.history.pushState('', '', '{{ url()->previous() }}');
         });
     </script>
-@endsection
+@endpush

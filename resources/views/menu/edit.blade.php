@@ -83,7 +83,7 @@
 @endsection
 
 
-@section('js')
+@push('js')
 <script>
     // preview image sebelum diupload
     function readURL(input) {
@@ -100,4 +100,4 @@
         readURL(this);
     });
 </script>
-@endsection
+@endpush

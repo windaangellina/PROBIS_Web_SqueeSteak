@@ -54,6 +54,7 @@ Route::middleware(['haruslogin', 'admin'])->group(function () {
     // ROUTING MENU
     Route::prefix('menu')->group(function () {
         Route::get('/', [MenuController::class, 'list'])->name('menu.list');
+        Route::get('/list/json', [MenuController::class, 'listJson']);
 
         Route::get('/add', [MenuController::class, 'viewAdd'])->name('menu.add.form');
         Route::post('/add', [MenuController::class, 'submitAdd'])->name('menu.add.submit');

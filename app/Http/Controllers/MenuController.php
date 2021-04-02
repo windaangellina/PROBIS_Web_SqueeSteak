@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MenuListResources;
 use App\Models\Kategori;
 use App\Models\Menu;
 use Illuminate\Http\Request;
@@ -15,6 +16,11 @@ class MenuController extends Controller
         return view('menu.list', [
             'datamenu' => $dataMenu
         ]);
+    }
+
+    public function listJson(){
+        $dataMenu = Menu::withTrashed()->orderBy('updated_at', 'DESC')->get();
+        return MenuListResources::collection($dataMenu);
     }
 
     public function viewAdd(){

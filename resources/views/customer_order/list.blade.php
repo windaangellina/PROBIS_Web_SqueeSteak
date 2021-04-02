@@ -61,9 +61,9 @@
                                             </a>
                                             <form>
                                                 @if ($status == 'done')
-                                                    <button type="button" class="btn btn-success mx-1 my-1 btnConfirm"
+                                                    <button type="button" class="btn btn-success mx-1 my-1 btnAksiModal"
                                                         formaction="{{ route('custorder.confirmpayment',
-                                                        ['id' => $pesanan->id]) }}">
+                                                        ['id' => $pesanan->id]) }}" mode="Konfirmasi" item="pembayaran">
                                                         <i class="fas fa-check"></i>
                                                     </button>
                                                 @endif
@@ -81,54 +81,11 @@
 </div>
 
 {{-- Modal --}}
-<div class="modal fade" id="modalConfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">
-                    Modal title
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="modalBody">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                </button>
-                <form method="POST">
-                    @csrf
-                    <button type="submit" class="btn" id="btnAction" formaction="#">
-                        Save changes
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@include('layouts.display-items.modal-confirmation')
 @endsection
 
 
-@section('js')
-    <script>
-        function setModalMode(action){
-            $("#modalTitle").html('Konfirmasi Pembayaran')
-
-            $("#btnAction").html('Konfirmasi');
-            $("#btnAction").addClass('btn-success');
-
-            $("#modalBody").html('Yakin ingin konfirmasi pembayaran?');
-            $("#btnAction").attr('formaction', action);
-            $("#modalConfirmation").modal('show');
-        }
-
-        $(document).on('click', ".btnConfirm", function(){
-            // console.log(this);
-            let action = $(this).attr('formaction');
-            setModalMode(action);
-        });
-    </script>
-@endsection
+@push('js')
+    {{-- node js / laravel mix. keterangan baca di CATATAN.txt --}}
+    <script src="{{ mix('js/konfirmasi.js') }}"></script>
+@endpush

@@ -78,7 +78,7 @@
 
 @endsection
 
-@section('js')
+@push('js')
     <script>
         function toggleVisibilityInputPassword(btnToggle){
             let mode = $(btnToggle).attr('mode');
@@ -104,4 +104,4 @@
             toggleVisibilityInputPassword(this);
         });
     </script>
-@endsection
+@endpush

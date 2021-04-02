@@ -1,0 +1,30 @@
+=====================
+STACK
+=====================
+stack can be appended as many times as needed. digunakan untuk javascript pada child views
+referensi :
+*) documentation    : https://laravel.com/docs/8.x/blade#stacks
+
+
+
+
+======================
+NODE JS / LARAVEL MIX
+======================
+referensi :
+*) youtube          : https://youtu.be/9ugzTTvNvkM
+*) documentation    : https://laravel.com/docs/8.x/mix#installation
+*) list command :
+npm install     -> untuk install npm di project laravel
+npm run watch   -> membuat supaya file js di resources dan public ke-link
+                    mix melihat kl ada perubahan di resources > js > app.js maka file yg di public jg bakalan berubah
+npm run prod    -> minify semua file js dan css yg terdaftar di webpack.mix.js
+                -> (yg di minify adalah linked files di folder public)
+                -> lakukan ini kl project sdh siap di-deploy.
+                -> semua perubahan yang dilakukan setelah npm run prod tidak akan ditulis ke linked js/css file di folder public sebelum dilakukan npm run watch kembali
+*) step by step :
+    1) pastikan node js sudah diinstall. lihat dokumentasi untuk caranya
+    2) buka folder project laravel dan jalankan command npm install
+    3) daftarkan file js/css yg ada di resources di webpack.mix.js
+    4) di folder project laravel, jalankan npm run watch untuk ngelink files yg ada di resources dengan public
+    5) setelah selesai melakukan perubahan pada file js, jalankan npm run prod
