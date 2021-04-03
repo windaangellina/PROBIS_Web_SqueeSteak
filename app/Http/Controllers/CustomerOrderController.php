@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PesananPelangganListResources;
 use App\Models\HeaderOrder;
 use Illuminate\Http\Request;
 
@@ -33,16 +34,37 @@ class CustomerOrderController extends Controller
         }
 
         //pass data
+        // $data = HeaderOrder::orderBy('created_at', 'ASC')
+        //     ->where('status_order', '=', $statusNumeric)
+        //     ->get();
+
+        return view('customer_order.list', [
+            // 'datapesananpelanggan'  => $data,
+            'title'                 => $title,
+            'deskripsi'             => $deskripsi,
+            'status'                => $status,
+            'statusNumeric'         => $statusNumeric
+        ]);
+    }
+
+    public function getListJson($status){
+        $statusNumeric = 0;
+        //cek status
+        if ($status == 'ongoing') {
+            $statusNumeric = 1;
+        }
+        else if ($status == 'done') {
+            $statusNumeric = 2;
+        }
+        else if ($status == 'closed') {
+            $statusNumeric = 3;
+        }
+
+        //pass data
         $data = HeaderOrder::orderBy('created_at', 'ASC')
             ->where('status_order', '=', $statusNumeric)
             ->get();
-
-        return view('customer_order.list', [
-            'datapesananpelanggan'  => $data,
-            'title'                 => $title,
-            'deskripsi'             => $deskripsi,
-            'status'                => $status
-        ]);
+        return PesananPelangganListResources::collection($data);
     }
 
     public function detail($id){

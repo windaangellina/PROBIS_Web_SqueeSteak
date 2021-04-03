@@ -15,6 +15,12 @@ function setModalMode(mode, action, item){
     $("#modalConfirmation").modal('show');
 }
 
+function refreshAjaxDataTables(){
+    //refresh ajax di datatables
+    var table = $("#dataTable").DataTable();
+    table.ajax.reload();
+}
+
 $(document).on('click', ".btnAksiModal", function(){
     // console.log(this);
     let action = $(this).attr('formaction');

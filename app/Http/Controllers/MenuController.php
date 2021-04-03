@@ -11,14 +11,16 @@ use Illuminate\Support\Str;
 class MenuController extends Controller
 {
     public function list(){
-        $dataMenu = Menu::withTrashed()->orderBy('updated_at', 'DESC')->get();
+        //$dataMenu = Menu::withTrashed()->orderBy('updated_at', 'DESC')->get();
+        // return view('menu.list-basic', [
+        //     'datamenu' => $dataMenu
+        // ]);
 
-        return view('menu.list', [
-            'datamenu' => $dataMenu
-        ]);
+        //ajax
+        return view('menu.list');
     }
 
-    public function listJson(){
+    public function getListJson(){
         $dataMenu = Menu::withTrashed()->orderBy('updated_at', 'DESC')->get();
         return MenuListResources::collection($dataMenu);
     }
@@ -119,8 +121,8 @@ class MenuController extends Controller
 
     public function submitEdit($idMenu, Request $request){
         $customMessages = [
-            'picture.max'   => 'ukuran foto menu max 10 mb',
-            'picture.mimes' => 'foto harus dalam format jpeg,jpg,png,bmp atau tiff',
+            'picture.max'   => 'Ukuran foto menu max 10 mb',
+            'picture.mimes' => 'Foto harus dalam format jpeg,jpg,png,bmp atau tiff',
         ];
 
         $input = $request->validate([
@@ -130,7 +132,7 @@ class MenuController extends Controller
         ], $customMessages);
 
         //edit menu
-        $menu = Menu::find($idMenu);
+        $menu = Menu::withTrashed()->where('id', '=', $idMenu)->first();
         $menu->id_admin = $request->session()->get('id_aktif');
         $menu->nama = $input['nama'];
         $menu->harga = $input['harga'];

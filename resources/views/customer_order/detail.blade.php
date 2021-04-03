@@ -108,7 +108,7 @@
                         @isset($dataPesanan)
                             @foreach ($dataPesanan->details as $pesanan)
                                 {{-- tampilkan pesanan yang sudah dicheck out aja --}}
-                                @if ($pesanan->status_diproses != 0)
+                                @if ($pesanan != null && $pesanan->status_diproses != 0)
                                     <tr>
                                         <td>
                                             {{ $pesanan->menu->nama }}

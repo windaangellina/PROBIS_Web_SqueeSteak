@@ -55,6 +55,6 @@
 
 @push('js')
     {{-- node js / laravel mix. keterangan baca di CATATAN.txt --}}
-    <script src="{{ mix('js/ajax-list.js') }}"></script>
+    <script src="{{ mix('js/menu/ajax-list.js') }}"></script>
     <script src="{{ mix('js/konfirmasi.js') }}"></script>
 @endpush

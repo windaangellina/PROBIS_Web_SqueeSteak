@@ -1,6 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/konfirmasi.js": "/js/konfirmasi.js",
-    "/js/ajax-list.js": "/js/ajax-list.js",
+    "/js/menu/ajax-list.js": "/js/menu/ajax-list.js",
+    "/js/menu/ajax-list-basic.js": "/js/menu/ajax-list-basic.js",
+    "/js/food_order/ajax-list.js": "/js/food_order/ajax-list.js",
+    "/js/customer_order/ajax-list.js": "/js/customer_order/ajax-list.js",
     "/css/app.css": "/css/app.css"
 }

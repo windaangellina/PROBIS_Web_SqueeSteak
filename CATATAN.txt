@@ -6,6 +6,16 @@ referensi :
 *) documentation    : https://laravel.com/docs/8.x/blade#stacks
 
 
+======================
+YAJRA DATATABLES
+======================
+referensi
+*) youtube cara install dan config project : https://youtu.be/ZqPzSIK2N-Y
+*) youtube cara penggunaan : https://youtu.be/1wgLY-V69MM?t=388
+*) yajra datatables add column with if : https://stackoverflow.com/questions/59839221/laravel-yajra-datatable-how-to-return-if-y-then-yes-else-no
+*) command untuk install di project :
+composer require yajra/laravel-datatables-oracle:"~9.0"
+composer require yajra/laravel-datatables:^1.5
 
 
 ======================

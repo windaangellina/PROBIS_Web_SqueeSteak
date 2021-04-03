@@ -25,7 +25,7 @@ class DetailOrder extends Model
     public function menu(){
         // one to many - inverse
         // related model, fk yg ada di model saat ini, pk model saat ini
-        return $this->belongsTo(Menu::class, 'id_menu', 'id');
+        return $this->belongsTo(Menu::class, 'id_menu', 'id')->withTrashed();
     }
 
     public function koki(){

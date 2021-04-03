@@ -30,4 +30,13 @@ class Menu extends Model
         // related model, fk yg ada di model saat ini, pk model saat ini
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id');
     }
+
+    public function getStatusDitampilkan(){
+        if ($this->deleted_at == null) {
+            return "Iya";
+        }
+        else{
+            return "Tidak";
+        }
+    }
 }

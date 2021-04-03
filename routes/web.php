@@ -15,20 +15,12 @@ Route::get('/test/layouts', function () {
 Route::get('/test/template', function () {
     return view('layouts.template-asli');
 });
-Route::get('/hash', function(){
-    // $staffs = Pegawai::all();
-
-    // foreach ($staffs as $key => $staff) {
-    //     $staff->password = \password_hash($staff->password, PASSWORD_DEFAULT);
-    //     $staff->save();
-    // }
-    // echo 'sukses hash';
-    dd(url()->current());
-});
 
 // LOG IN
-Route::get('/login', [LoginController::class, 'viewLogin'])->name('login');
-Route::post('/login', [LoginController::class, 'submitLogin']);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'viewLogin'])->name('login');
+    Route::post('/login', [LoginController::class, 'submitLogin']);
+});
 
 Route::middleware('haruslogin')->group(function () {
     // PERMISSION DENIED
@@ -54,7 +46,7 @@ Route::middleware(['haruslogin', 'admin'])->group(function () {
     // ROUTING MENU
     Route::prefix('menu')->group(function () {
         Route::get('/', [MenuController::class, 'list'])->name('menu.list');
-        Route::get('/list/json', [MenuController::class, 'listJson']);
+        Route::get('/list/json', [MenuController::class, 'getListJson']);
 
         Route::get('/add', [MenuController::class, 'viewAdd'])->name('menu.add.form');
         Route::post('/add', [MenuController::class, 'submitAdd'])->name('menu.add.submit');
@@ -75,7 +67,12 @@ Route::middleware(['haruslogin', 'admin'])->group(function () {
 Route::middleware(['haruslogin', 'koki'])->group(function () {
     // ROUTING FOOD ORDER / PESANAN MAKANAN
     Route::prefix('food-order')->group(function () {
-        Route::get('/{status}', [FoodOrderController::class, 'list'])->name('foodorder.list');
+        Route::prefix('{status}')->group(function(){
+            Route::get('/', [FoodOrderController::class, 'list'])->name('foodorder.list');
+            Route::get('/list/json/rekapmenu', [FoodOrderController::class, 'getRekapanMenuPesananJson']);
+            Route::get('/list/json/pesanan', [FoodOrderController::class, 'getDataPesananJson']);
+        });
+
 
         Route::prefix('{id}')->group(function () {
             Route::post('/done', [FoodOrderController::class, 'foodPrepared'])->name('foodorder.foodPrepared');
@@ -94,7 +91,10 @@ Route::middleware(['haruslogin', 'koki'])->group(function () {
 Route::middleware(['haruslogin', 'kasir'])->group(function () {
     // ROUTING CUSTOMER ORDER / PESANAN PELANGGAN
     Route::prefix('customer-order')->group(function () {
-        Route::get('/{status}', [CustomerOrderController::class, 'list'])->name('custorder.list');
+        Route::prefix('/{status}')->group(function(){
+            Route::get('/', [CustomerOrderController::class, 'list'])->name('custorder.list');
+            Route::get('/list/json', [CustomerOrderController::class, 'getListJson']);
+        });
 
         Route::prefix('{id}')->group(function () {
             Route::get('/detail', [CustomerOrderController::class, 'detail'])

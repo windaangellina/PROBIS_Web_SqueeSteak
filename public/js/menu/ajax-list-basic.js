@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
-/*!****************************************!*\
-  !*** ./resources/js/menu/ajax-list.js ***!
-  \****************************************/
+/*!**********************************************!*\
+  !*** ./resources/js/menu/ajax-list-basic.js ***!
+  \**********************************************/
 function ajaxListMenu() {
   $.ajax({
     type: "get",
@@ -11,7 +11,6 @@ function ajaxListMenu() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     success: function success(response) {
-      console.log(response);
       var dom = "";
       response.data.forEach(function (el) {
         dom += "<tr>\n                        <td>" + el.nama_kategori + "</td>\n                        <td>" + el.nama + "</td>\n                        <td class=\"text-right\">" + el.harga + "</td>\n                        <td>";
@@ -43,9 +42,10 @@ function ajaxListMenu() {
       });
       $("#dataTable tbody").html(dom);
     },
-    error: function error(xhr, status, _error) {//    alert("Status: " + status);
-      //    alert("Error: " + error);
-      //    alert("xhr: " + xhr.readyState);
+    error: function error(xhr, status, _error) {
+      alert("Status: " + status);
+      alert("Error: " + _error);
+      alert("xhr: " + xhr.readyState);
     },
     statusCode: {
       404: function _() {
@@ -57,7 +57,12 @@ function ajaxListMenu() {
 
 var tmrAjax = null;
 $(function () {
-  ajaxListMenu();
+  $("#dataTable").dataTable();
+  ajaxListMenu(); //refresh ajax data setiap 2 menit
+
+  tmrAjax = setInterval(function () {
+    ajaxListMenu();
+  }, 2 * 60 * 1000);
 });
 /******/ })()
 ;

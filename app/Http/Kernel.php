@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\AksesAdminMiddleware;
 use App\Http\Middleware\AksesKasirMiddleware;
 use App\Http\Middleware\AksesKokiMiddleware;
+use App\Http\Middleware\GuestMiddleware;
 use App\Http\Middleware\HarusLoginMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -71,6 +72,7 @@ class Kernel extends HttpKernel
         'admin' => AksesAdminMiddleware::class,
         'koki'  => AksesKokiMiddleware::class,
         'kasir' => AksesKasirMiddleware::class,
-        'haruslogin'   => HarusLoginMiddleware::class
+        'haruslogin'   => HarusLoginMiddleware::class,
+        'guest' => GuestMiddleware::class
     ];
 }

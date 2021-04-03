@@ -14,7 +14,10 @@ const mix = require('laravel-mix');
 mix
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/konfirmasi.js', 'public/js')
-    .js('resources/js/menu/ajax-list.js', 'public/js')
+    .js('resources/js/menu/ajax-list.js', 'public/js/menu')
+    .js('resources/js/menu/ajax-list-basic.js', 'public/js/menu')
+    .js('resources/js/food_order/ajax-list.js', 'public/js/food_order')
+    .js('resources/js/customer_order/ajax-list.js', 'public/js/customer_order')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);

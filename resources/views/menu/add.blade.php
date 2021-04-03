@@ -4,6 +4,13 @@
     Tambah Menu Baru
 @endsection
 
+@section('web-style')
+    <style>
+        #fotoMenu{
+            object-fit: cover; width: 300px; height: 300px;
+        }
+    </style>
+@endsection
 
 @section('web-content')
 <div class="container-fluid">
@@ -22,10 +29,10 @@
     <form method="POST" enctype="multipart/form-data">
         @csrf
         {{-- preview foto --}}
-        <div class="row mt-4">
-            <div class="col-12 text-center" style="width: 17em; height: 17em;">
+        <div class="row mt-4 d-flex justify-content-center">
+            <div class="col-sm-12 col-lg-4 text-center">
                 {{-- <img id="fotoMenu" class="img-responsive w-25 border border-dark" src="{{ asset('assets/img/no-image.jpg') }}" style="min-width: 200px; max-width: 300px; min-height: 200px; max-height: 300px;"> --}}
-                <img id="fotoMenu" class="img-responsive w-25 border border-dark" src="{{ asset('assets/img/no-image.jpg') }}" style="object-fit: cover; width: 300px; height: 300px;">
+                <img id="fotoMenu" class="img-responsive w-100 border border-dark" src="{{ asset('assets/img/no-image.jpg') }}">
             </div>
         </div>
 
@@ -35,9 +42,14 @@
             <input id="inputFileFotoMenu" type="file" name="picture" required class="form-control my-2">
         </div>
         <div class="my-4 text-danger text-left">
-            @error('picture')
+            <span id="errNoteFoto">
+                @error('picture')
+                    {{ $message }}
+                @enderror
+            </span>
+            {{-- @error('picture')
                 {{ $message }}
-            @enderror
+            @enderror --}}
         </div>
         <div class="form-group my-4">
             <label>Nama</label>
@@ -87,14 +99,26 @@
     // preview image sebelum diupload
     function readURL(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
+            var file = input.files[0];
+            var fileType = file["type"];
+            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
 
-            reader.onload = function (e) {
-                $('#fotoMenu').attr('src', e.target.result);
+            if ($.inArray(fileType, validImageTypes) < 0) {
+                // invalid file type code goes here.
+                $('#inputFileFotoMenu').val('');
+                $('#errNoteFoto').html('Foto harus dalam format jpeg,jpg,png,bmp atau tiff');
             }
-            reader.readAsDataURL(input.files[0]);
+            else{
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#fotoMenu').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
         }
     }
+
     $("#inputFileFotoMenu").change(function(){
         readURL(this);
     });

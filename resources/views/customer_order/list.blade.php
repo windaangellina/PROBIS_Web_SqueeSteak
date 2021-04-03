@@ -6,6 +6,7 @@
 
 
 @section('web-content')
+<input type="hidden" id="statusPesanan" value="{{ $status }}"/>
 <div class="container-fluid">
     <h1 class="mt-4">{{ $title == '' ? 'Daftar Pesanan Pelanggan' : $title }}</h1>
     <ol class="breadcrumb mb-4">
@@ -42,37 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @isset($datapesananpelanggan)
-                            @if (count($datapesananpelanggan) >= 0)
-                                @foreach ($datapesananpelanggan as $pesanan)
-                                    <tr>
-                                        <td>{{ $pesanan->nomor_meja }}</td>
-                                        <td>{{ $pesanan->kode_order }}</td>
-                                        <td class="text-right">{{ number_format($pesanan->total == null ? 0 : $pesanan->total,0,",",".")  }}</td>
-                                        <td>{{ $pesanan->created_at }}</td>
-                                        @if ($status == 'closed')
-                                            <td>{{ $pesanan->updated_at }}</td>
-                                            <td>{{ $pesanan->kasir->nama }}</td>
-                                        @endif
-                                        <td class="text-center align-middle">
-                                            <a class="btn btn-secondary mx-1 my-1 btnDelete"
-                                                href="{{ url("customer-order/" . $pesanan->id . "/detail") }}">
-                                                <i class="fas fa-receipt"></i>
-                                            </a>
-                                            <form>
-                                                @if ($status == 'done')
-                                                    <button type="button" class="btn btn-success mx-1 my-1 btnAksiModal"
-                                                        formaction="{{ route('custorder.confirmpayment',
-                                                        ['id' => $pesanan->id]) }}" mode="Konfirmasi" item="pembayaran">
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
-                                                @endif
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                        @endisset
+
                     </tbody>
                 </table>
             </div>
@@ -84,8 +55,8 @@
 @include('layouts.display-items.modal-confirmation')
 @endsection
 
-
 @push('js')
     {{-- node js / laravel mix. keterangan baca di CATATAN.txt --}}
+    <script id="scriptList" src="{{ mix('js/customer_order/ajax-list.js') }}"></script>
     <script src="{{ mix('js/konfirmasi.js') }}"></script>
 @endpush

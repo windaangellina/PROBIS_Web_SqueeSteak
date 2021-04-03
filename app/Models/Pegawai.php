@@ -24,7 +24,7 @@ class Pegawai extends Model
         // related model
         // foreign key = current model dikenali sbg fk apa di related model
         // local key = pk current model
-        return $this->hasMany(Menu::class, 'id_admin', 'id');
+        return $this->hasMany(Menu::class, 'id_admin', 'id')->withTrashed();
     }
 
 
