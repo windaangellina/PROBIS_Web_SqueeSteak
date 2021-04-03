@@ -51,7 +51,7 @@
                     font-size: 2vw
                 }
                 p, th, td {
-                    font-size: 1vw
+                    font-size: 0.8vw
                 }
             }
 
@@ -63,7 +63,7 @@
                     font-size: 8vw
                 }
                 p, th, td {
-                    font-size: 1vw
+                    font-size: 0.8vw
                 }
             }
         </style>
