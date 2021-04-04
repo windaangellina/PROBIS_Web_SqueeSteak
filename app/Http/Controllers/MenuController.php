@@ -138,9 +138,10 @@ class MenuController extends Controller
         $menu->harga = $input['harga'];
 
         //cek apakah deskripsi ada diisi
-        if ($request->input('deskripsi') != null) {
-            $menu->deskripsi = $request->input('deskripsi');
-        }
+        $menu->deskripsi = $request->input('deskripsi');
+        // if ($request->input('deskripsi') != null) {
+        //     $menu->deskripsi = $request->input('deskripsi');
+        // }
 
         //simpan
         $result = $menu->save();
