@@ -22,4 +22,4 @@ mix
         //
     ]);
 
-mix.copyDirectory('storage/app/public', 'public/resources');
+// mix.copyDirectory('storage/app/public', 'public/resources');
