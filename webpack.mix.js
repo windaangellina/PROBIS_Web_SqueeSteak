@@ -21,3 +21,5 @@ mix
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
+
+mix.copyDirectory('storage/app/public', 'public/resources');
