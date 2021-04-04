@@ -14,7 +14,7 @@
                 <div class="sb-sidenav-menu-heading">Menu Pegawai</div>
                 {{-- menu --}}
                 @if (session('role_aktif') == 1)
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsMenu" aria-expanded="false" aria-controls="collapseLayouts">
+                    <a id="menu" class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsMenu" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Menu
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
