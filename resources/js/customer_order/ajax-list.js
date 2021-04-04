@@ -1,6 +1,6 @@
 var tmrAjax = null;
 
-function ajaxListCustomerOrder(status){
+function ajaxListCustomerOrder(table, status){
     var urlJson = status + "/list/json";
     $.ajax({
         type:"get",
@@ -8,14 +8,7 @@ function ajaxListCustomerOrder(status){
         responsive:true,
         success:
             function (response) {
-                var indexLastColumn = $("#dataTable").find('tr')[0].cells.length-1;
-                var table = $("#dataTable").DataTable({
-                    columnDefs: [
-                        { orderable: false, targets: indexLastColumn },
-                        { className:'text-right', targets: [2] },
-                        { className:'text-center', targets: [indexLastColumn] },
-                    ]
-                });
+
 
                 //clear content
                 table.clear();
@@ -89,11 +82,20 @@ function callAjax(){
     var pstatus = $('#statusPesanan').val();
     console.log(pstatus);
 
-    ajaxListCustomerOrder(pstatus);
+    var indexLastColumn = $("#dataTable").find('tr')[0].cells.length-1;
+    var table = $("#dataTable").DataTable({
+        columnDefs: [
+            { orderable: false, targets: indexLastColumn },
+            { className:'text-right', targets: [2] },
+            { className:'text-center', targets: [indexLastColumn] },
+        ]
+    });
+
+    ajaxListCustomerOrder(table, pstatus);
 
     //refresh ajax data setiap 3 menit
     tmrAjax = setInterval(() => {
-        ajaxListCustomerOrder(pstatus)
+        ajaxListCustomerOrder(table, pstatus)
     }, 3 * 60 * 1000);
 }
 
