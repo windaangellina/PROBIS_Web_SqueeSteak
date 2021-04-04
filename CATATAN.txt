@@ -7,7 +7,7 @@ referensi :
 
 
 ======================
-YAJRA DATATABLES
+YAJRA DATATABLES (gajadi dipake)
 ======================
 referensi
 *) youtube cara install dan config project : https://youtu.be/ZqPzSIK2N-Y
