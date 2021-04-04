@@ -22,4 +22,5 @@ mix
         //
     ]);
 
-// mix.copyDirectory('storage/app/public', 'public/resources');
+// file yg masuk ke storage lgsg dicopy ke public
+mix.copyDirectory('storage/app/public', 'public/resources');
