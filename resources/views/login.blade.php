@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login</title>
+	<title>Masuk</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="{{ asset('assets/img/icons_steaks.png') }}" type="image" />
@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/animsition/css/animsition.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/responsive-font.css') }}"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -22,7 +23,7 @@
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url('{{ asset('resources/images/app/bg/bg-01.jpg') }}');">
 					<span class="login100-form-title-1">
-						Sign In
+						Masuk
 					</span>
 				</div>
 
@@ -34,7 +35,7 @@
 				<form class="login100-form validate-form" method="POST" action="{{ url('login') }}">
                     @csrf
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Username</span>
+						<span class="label-input100">Nama Akun</span>
 						<input class="input100" type="text" name="username" placeholder="Enter username">
 						<span class="focus-input100"></span>
 					</div>
@@ -43,7 +44,7 @@
                     @enderror
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-						<span class="label-input100">Password</span>
+						<span class="label-input100">Kata Sandi</span>
 						<div class="d-flex justify-content-between">
                             <input class="input100 inputpw" type="password" name="pass" placeholder="Enter password">
                             <button type="button" class="btn btn-sm btn-light ml-3 py-0 btn-toggle-pw" mode='hidden'>
@@ -73,7 +74,7 @@
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn mx-auto" type="submit">
-							Login
+							Masuk
 						</button>
 					</div>
 				</form>

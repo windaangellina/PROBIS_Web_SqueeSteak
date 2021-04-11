@@ -18,6 +18,7 @@ mix
     .js('resources/js/menu/ajax-list-basic.js', 'public/js/menu')
     .js('resources/js/food_order/ajax-list.js', 'public/js/food_order')
     .js('resources/js/customer_order/ajax-list.js', 'public/js/customer_order')
+    .css('resources/css/responsive-font.css', 'public/css')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);

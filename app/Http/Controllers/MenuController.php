@@ -122,7 +122,7 @@ class MenuController extends Controller
     public function submitEdit($idMenu, Request $request){
         $customMessages = [
             'picture.max'   => 'Ukuran foto menu max 10 mb',
-            'picture.mimes' => 'Foto harus dalam format jpeg,jpg,png,bmp atau tiff',
+            'picture.mimes' => 'Foto harus dalam format jpeg, jpg, png, bmp atau tiff',
         ];
 
         $input = $request->validate([

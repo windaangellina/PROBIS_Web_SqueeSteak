@@ -12,61 +12,7 @@
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-        <style>
-            /* responsive font size */
-            html {
-                font-size: 14px !important;
-            }
-            @media screen and (min-width: 320px) {
-                html {
-                    font-size: calc(14px + 6 * ((100vw - 320px) / 680)) !important;
-                }
-
-                h1, .h1 {
-                    font-size: 5vw
-                }
-
-                p, th, td {
-                    font-size: 3vw
-                }
-            }
-            @media screen and (min-width: 1000px) {
-                html {
-                    font-size: 14px !important;
-                }
-                h1, .h1 {
-                    font-size: 3vw
-                }
-
-                p, th, td {
-                    font-size: 1vw
-                }
-            }
-
-            @media screen and (min-width: 1360px) {
-                html {
-                    font-size: 16px !important;
-                }
-                h1, .h1 {
-                    font-size: 2vw
-                }
-                p, th, td {
-                    font-size: 0.8vw
-                }
-            }
-
-            @media screen and (min-width: 1980px) {
-                html {
-                    font-size: 16px !important;
-                }
-                h1, .h1 {
-                    font-size: 8vw
-                }
-                p, th, td {
-                    font-size: 0.8vw
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="{{ mix('css/responsive-font.css') }}"/>
         @yield('web-style')
     </head>
     <body class="sb-nav-fixed">
@@ -89,6 +35,20 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         {{-- <script src="{{ asset('assets/demo/datatables-demo.js') }}"></script> --}}
+
+        {{-- script tampilan menu --}}
+        <script>
+            $(function () {
+                var menuChildAktif = $(".menu-child.active")[0];
+
+                if (menuChildAktif != null) {
+                    let menuParent = $(menuChildAktif).parent().parent().siblings(".nav-parent")[0];
+
+                    $(menuParent).click();
+                    $(menuParent).addClass("active");
+                }
+            })
+        </script>
 
         {{-- script sendiri --}}
         {{-- stack can be appended as many times as needed

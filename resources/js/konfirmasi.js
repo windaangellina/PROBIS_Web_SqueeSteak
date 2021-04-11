@@ -10,7 +10,7 @@ function setModalMode(mode, action, item){
     $("#modalTitle").html(mode + ' ' + item)
     $("#btnAction").html(mode);
     $("#modalBody").html('Yakin ingin '
-            + mode + " " + item + ' ?');
+            + mode.toLowerCase() + " " + item + ' ?');
     $("#btnAction").attr('formaction', action);
     $("#modalConfirmation").modal('show');
 }

@@ -8,8 +8,6 @@ function ajaxListCustomerOrder(table, status){
         responsive:true,
         success:
             function (response) {
-
-
                 //clear content
                 table.clear();
 
@@ -17,12 +15,12 @@ function ajaxListCustomerOrder(table, status){
                 obj.data.forEach(el => {
                     // dom untuk button aksi
                     var domAksi =
-                    `<a class="btn btn-secondary mx-1 my-1 btnDelete"
+                    `<a class="btn btn-secondary mx-1 my-1"
                         href="`+ el.id +`/detail">
                         <i class="fas fa-receipt"></i>
                     </a>`;
                     if (status == "done") {
-                        domAksi += ` <button type="button" class="btn btn-success mx-1 my-1 btnAksiModal"
+                        domAksi += `<button type="button" class="btn btn-success mx-1 my-1 btnAksiModal"
                             formaction="` + el.id + `/confirm-payment" mode="Konfirmasi" item="pembayaran">
                             <i class="fas fa-check"></i>
                         </button>`;
@@ -54,7 +52,6 @@ function ajaxListCustomerOrder(table, status){
                         ];
 
                         //add row ke datatables
-                        console.log(rowColumn);
                         table.row.add(rowColumn);
                     }
 
@@ -65,13 +62,13 @@ function ajaxListCustomerOrder(table, status){
                 table.draw();
             },
         error: function (xhr,status,error) {
-            alert("Status: " + status);
-            alert("Error: " + error);
-            alert("xhr: " + xhr.readyState);
+            console.log("Status: " + status);
+            console.log("Error: " + error);
+            console.log("xhr: " + xhr.readyState);
         },
         statusCode: {
             404: function() {
-                alert("page not found");
+
             }
         }
     });
@@ -87,7 +84,7 @@ function callAjax(){
         columnDefs: [
             { orderable: false, targets: indexLastColumn },
             { className:'text-right', targets: [2] },
-            { className:'text-center', targets: [indexLastColumn] },
+            { className:'text-center', targets: [0,indexLastColumn] },
         ]
     });
 

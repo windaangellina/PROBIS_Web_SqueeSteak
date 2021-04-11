@@ -1,67 +1,5 @@
 var tmrAjax = null;
 
-// function ajaxListMenuV2(){
-//     var table = $("#dataTable").DataTable();
-//     table.clear().destroy();
-
-//     var table = $("#dataTable").DataTable({
-//         ajax:{
-//             url:"/menu/list/json",
-//             cache:false
-//         },
-//         serverSide:true,
-//         responsive:true,
-//         columnDefs: [
-//             // align text right untuk kolom dengan index ke-2 (kolom harga)
-//             { className: 'text-right', targets: [2] },
-//         ],
-//         columns:[
-//             { data : 'nama_kategori' },
-//             { data : 'nama' },
-//             { data: 'harga' },
-//             {
-//                 data: null,
-//                 render: function ( data, type, row ) {
-//                     if (data.deleted_at != null) {
-//                         return '<span class="text-danger">Tidak</span>';
-//                     }
-//                     else{
-//                         return '<span class="text-success">Iya</span>';
-//                     }
-//                 }
-//             },
-//             { data : 'created_at' },
-//             { data : 'updated_at' },
-//             {
-//                 data: null,
-//                 orderable: false,
-//                 render: function ( data, type, row ) {
-//                     var dom =
-//                     `<a class="btn btn-secondary mx-1 my-1"
-//                         href="/menu/`+ data.id +`/edit") }}">
-//                         <i class="fas fa-edit"></i>
-//                     </a>`;
-
-//                     if (data.deleted_at == null) {
-//                         dom += `<button type="button" class="btn btn-danger mx-1 my-1 btnAksiModal"
-//                         formaction="/menu/`+ data.id +`/delete" mode="Hapus" item="menu">
-//                             <i class="fas fa-trash"></i>
-//                         </button>`;
-//                     }
-//                     else{
-//                         dom +=  `<button type="button" class="btn btn-success mx-1 my-1 btnAksiModal"
-//                         formaction="/menu/`+ data.id +`/restore" mode="Restorasi" item="menu">
-//                             <i class="fas fa-trash-restore"></i>
-//                         </button>`;
-//                     }
-
-//                     return dom;
-//                 }
-//             },
-//         ]
-//     });
-// }
-
 function ajaxListMenu(table){
     $.ajax({
         type:"get",
@@ -118,9 +56,9 @@ function ajaxListMenu(table){
                 table.draw();
             },
         error: function (xhr,status,error) {
-            alert("Status: " + status);
-            alert("Error: " + error);
-            alert("xhr: " + xhr.readyState);
+            console.log("Status: " + status);
+            console.log("Error: " + error);
+            console.log("xhr: " + xhr.readyState);
         },
         statusCode: {
             404: function() {
@@ -145,5 +83,5 @@ $(document).ready(function() {
     //refresh ajax data setiap 3 menit
     tmrAjax = setInterval(() => {
         ajaxListMenu(table);
-    }, 3 * 60 * 1000);
+    }, 3 * 60 * 1000 * 99999);
 });

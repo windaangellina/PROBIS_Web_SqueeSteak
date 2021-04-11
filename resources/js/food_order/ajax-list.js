@@ -10,8 +10,6 @@ function ajaxListRekapMenu(table, status){
         success:
             function (response) {
                 //clear content
-
-
                 table.clear();
 
                 let obj = JSON.parse(JSON.stringify(response));
@@ -43,9 +41,9 @@ function ajaxListRekapMenu(table, status){
 
             },
         error: function (xhr,status,error) {
-            // alert("Status: " + status);
-            //alert("Error: " + error);
-            // alert("xhr: " + xhr.readyState);
+            console.log("Status: " + status);
+            console.log("Error: " + error);
+            console.log("xhr: " + xhr.readyState);
         },
         statusCode: {
             404: function() {
@@ -110,20 +108,22 @@ function ajaxListPesananMenu(status, csrf_token){
                                                 if (status == "ongoing") {
                                                     dom +=
                                                     `<form method="POST">
-                                                    <input type="hidden" name="_token" value="`+ csrf_token +`" />
-                                                        <button type="submit" class="btn btn-success" formaction="`+ detail.id +`/done">
+                                                    <input type="hidden" name="_token" value="`+
+                                                    csrf_token +`" />
+                                                        <button type="submit" class="btn btn-success btnTextResponsive" formaction="`+ detail.id +`/done">
                                                             <i class="fas fa-check"></i>
                                                         </button>
                                                     </form>`;
                                                 }
                                                 else if (status == "all") {
                                                     dom +=
-                                                    `<button class="btn btn-secondary" disabled>
-                                                        <i class="fas fa-spinner"></i>
+                                                    `<button class="btn btn-secondary btnTextResponsive" disabled>
+                                                        <i class="fas fa-clock"></i>
                                                     </button>`;
                                                 }
+                                                dom +='</div>';
                                             }
-                                        dom +=`</div>`;
+                                        dom +='</div>';
                                         if (detail.keterangan != null) {
                                             dom +=
                                             `<div class="row">
@@ -144,7 +144,7 @@ function ajaxListPesananMenu(status, csrf_token){
                             <div class="text-center mb-3">
                                 <form method="POST">
                                 <input type="hidden" name="_token" value="`+ csrf_token +`" />
-                                    <button type="submit" formaction="/customer-order/` + el.id + `/done-all" class="btn btn-primary w-75">
+                                    <button type="submit" formaction="/customer-order/` + el.id + `/done-all" class="btn btn-primary w-75 btnTextResponsive">
                                         Sudah Selesai Semua
                                     </button>
                                 </form>
@@ -159,9 +159,9 @@ function ajaxListPesananMenu(status, csrf_token){
                 $("#containerCardPesanan").html(dom);
             },
         error: function (xhr,status,error) {
-            // alert("Status: " + status);
-            //alert("Error: " + error);
-            // alert("xhr: " + xhr.readyState);
+            console.log("Status: " + status);
+            console.log("Error: " + error);
+            console.log("xhr: " + xhr.readyState);
         },
         statusCode: {
             404: function() {

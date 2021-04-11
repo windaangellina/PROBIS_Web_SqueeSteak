@@ -14,12 +14,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
+                    Tutup
                 </button>
                 <form method="POST">
                     @csrf
                     <button type="submit" class="btn" id="btnAction" formaction="#">
-                        Save changes
+                        Simpan
                     </button>
                 </form>
             </div>

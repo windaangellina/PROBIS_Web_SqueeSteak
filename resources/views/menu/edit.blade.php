@@ -28,6 +28,10 @@
     {{-- form --}}
     <form method="POST" enctype="multipart/form-data">
         @csrf
+        {{-- <div class="row mt-4 d-flex flex-row-reverse">
+            <button class="btn btn-primary btnReset">Reset</button>
+        </div> --}}
+
         {{-- preview foto --}}
         <div class="row mt-4 d-flex justify-content-center">
             <div class="col-sm-12 col-lg-4 text-center">
@@ -99,10 +103,11 @@
         if (input.files && input.files[0]) {
             var file = input.files[0];
             var fileType = file["type"];
-            var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            var validImageTypes = ["image/jpeg", "image/png", "image/jpg", "image/tiff", "image/bmp"];
 
             if ($.inArray(fileType, validImageTypes) < 0) {
                 // invalid file type code goes here.
+                $('#fotoMenu').attr('src', "{{ asset('assets/img/no-image.jpg') }}");
                 $('#inputFileFotoMenu').val('');
                 $('#errNoteFoto').html('Foto harus dalam format jpeg,jpg,png,bmp atau tiff');
             }

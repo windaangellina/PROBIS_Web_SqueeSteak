@@ -119,7 +119,7 @@
                                             @endif
                                         </td>
                                         <td class="text-right">{{ number_format($pesanan->harga == null ? 0 : $pesanan->harga,0,",",".")  }}</td>
-                                        <td>{{ $pesanan->jumlah }}</td>
+                                        <td class="text-right">{{ $pesanan->jumlah }}</td>
                                         <td class="text-right">{{ number_format($pesanan->subtotal == null ? 0 : $pesanan->subtotal,0,",",".")  }}</td>
                                     </tr>
                                 @endif

@@ -5,16 +5,7 @@ use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\FoodOrderController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
-use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
-
-// TESTING TEMPLATE LAYOUT
-Route::get('/test/layouts', function () {
-    return view('layouts.layout-master');
-});
-Route::get('/test/template', function () {
-    return view('layouts.template-asli');
-});
 
 // LOG IN
 Route::middleware('guest')->group(function () {
