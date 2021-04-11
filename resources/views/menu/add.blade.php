@@ -95,8 +95,6 @@
 
 @push('js')
 <script>
-    $('#menu').click();
-    $('#menu').addClass('active');
     // preview image sebelum diupload
     function readURL(input) {
         if (input.files && input.files[0]) {
