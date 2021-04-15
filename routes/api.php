@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AndroidController;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('/android')->group(function(){
+    Route::post('/ubahMeja', [AndroidController::class, 'ubahNoMeja']);
+    Route::post('/getMenu', [AndroidController::class, 'getMenu']);
+});
+

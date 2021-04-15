@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AndroidController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\FoodOrderController;
@@ -94,6 +95,10 @@ Route::middleware(['haruslogin', 'kasir'])->group(function () {
                 ->name('custorder.confirmpayment');
         });
     });
+});
+
+Route::prefix('android')->group(function(){
+    Route::get('/coba', [AndroidController::class, 'coba']);
 });
 
 
