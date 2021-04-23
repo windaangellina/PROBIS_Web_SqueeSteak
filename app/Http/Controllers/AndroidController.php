@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HeaderOrder;
 use App\Models\Menu;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
@@ -78,6 +79,31 @@ class AndroidController extends Controller
             $response["code"] = -1;
             $response["message"] = "Request Invalid";
         }
+        echo json_encode($response);
+    }
+
+    function makeHeader(Request $request){
+        $response = array();
+        $hari = "INV" . date('yymd');
+        $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->get()->count() + 1;
+        $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
+        if($jumlah == 1){
+            $order = new HeaderOrder();
+            $order->kode_order = $kode;
+            $order->nomor_meja = $request->meja;
+            $order->status_order = 0;
+            $order->save();
+        }
+        else{
+            $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->get();
+            for ($i=0; $i < count($jumlah) + 1; $i++) {
+                if($jumlah[$i]->status_order != 2){
+                    $kode = $hari . str_pad($jumlah-1,5,"0",STR_PAD_LEFT);
+                }
+            }
+        }
+        $response["code"] = 1;
+        $response["message"] = $kode;
         echo json_encode($response);
     }
 }
