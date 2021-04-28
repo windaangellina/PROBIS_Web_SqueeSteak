@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailOrder;
 use App\Models\HeaderOrder;
 use App\Models\Menu;
 use App\Models\Kategori;
@@ -10,10 +11,30 @@ use Illuminate\Support\Facades\DB;
 
 class AndroidController extends Controller
 {
+    // function coba(){
+    //     $menu = Menu::where('id_kategori', '1')->get();
+    //     dd(count($menu));
+    // }
+
     function coba(){
-        $menu = Menu::where('id_kategori', '1')->get();
-        dd(count($menu));
+        $idOrder = DB::table('h_order')->where('kode_order','=',"INV2121042900001")->get();
+        $order = new DetailOrder();
+        $order->id_order = $idOrder['0']->id;
+        $order->id_menu = "1";
+        $order->status_diproses = 0;
+        $order->harga = 93000;
+        $order->jumlah = 2;
+        $order->subtotal = 93000 * 2;
+        $order->keterangan = "abcd";
+        $result = $order->save();
+        if($result){
+            dd("a");
+        }
+        else{
+            dd("n");
+        }
     }
+
     function ubahNoMeja(Request $request){
         $response = array();
         if(isset($request->function) && isset($request->password)){
@@ -87,6 +108,7 @@ class AndroidController extends Controller
         $hari = "INV" . date('yymd');
         $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->get()->count() + 1;
         $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
+        $response["code"] = 1;
         if($jumlah == 1){
             $order = new HeaderOrder();
             $order->kode_order = $kode;
@@ -95,15 +117,26 @@ class AndroidController extends Controller
             $order->save();
         }
         else{
-            $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->get();
-            for ($i=0; $i < count($jumlah) + 1; $i++) {
-                if($jumlah[$i]->status_order != 2){
-                    $kode = $hari . str_pad($jumlah-1,5,"0",STR_PAD_LEFT);
-                }
-            }
+            $kode = $hari . str_pad($jumlah-1,5,"0",STR_PAD_LEFT);
         }
-        $response["code"] = 1;
         $response["message"] = $kode;
+        echo json_encode($response);
+    }
+
+    function addItem(Request $request){
+        $response = array();
+        $idOrder = DB::table('h_order')->where('kode_order','=',$request->kode)->get();
+        $order = new DetailOrder();
+        $order->id_order = $idOrder['0']->id;
+        $order->id_menu = $request->id;
+        $order->status_diproses = 0;
+        $order->harga = $request->harga;
+        $order->jumlah = $request->jumlah;
+        $order->subtotal = $request->harga * $request->jumlah;
+        $order->keterangan = $request->keterangan;
+        $order->save();
+        $response["code"] = 1;
+        $response["message"] = "Request Berhasil";
         echo json_encode($response);
     }
 }
