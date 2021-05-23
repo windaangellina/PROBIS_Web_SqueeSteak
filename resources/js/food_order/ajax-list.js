@@ -55,7 +55,7 @@ function ajaxListRekapMenu(table, status){
 
 function ajaxListPesananMenu(status, csrf_token){
     //let urlJson = status + "/list/json/pesanan";
-    let urlJson = 'http://127.0.0.1:8000/food-order/' + status + '/list/json/pesanan';
+    let urlJson = status + '/list/json/pesanan';
     $.ajax({
         type:"get",
         url:urlJson,
