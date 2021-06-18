@@ -35,7 +35,6 @@
         {{-- preview foto --}}
         <div class="row mt-4 d-flex justify-content-center">
             <div class="col-sm-12 col-lg-4 text-center">
-                {{-- <img id="fotoMenu" class="img-responsive w-25 border border-dark" src="{{ asset('assets/img/no-image.jpg') }}" style="min-width: 200px; max-width: 300px; min-height: 200px; max-height: 300px;"> --}}
                 <img id="fotoMenu" class="img-responsive w-100 border border-dark" src="{{ asset('storage/res/' . $dataMenu->kategori->folder . '/' . $dataMenu->url_foto_menu) }}">
             </div>
         </div>
@@ -61,19 +60,6 @@
                 {{ $message }}
             @enderror
         </div>
-        {{-- <div class="form-group my-4">
-            <label>Kategori</label>
-            <select name="kategori" required class="form-control">
-                @if (isset($dataKategori) && count($dataKategori) > 0)
-                    @foreach ($dataKategori as $category)
-                        <option value="{{ $category->id }}"
-                            {{ $dataMenu->kategori->id == $category->id ? 'selected' : '' }}>
-                            {{ $category->nama }}
-                        </option>
-                    @endforeach
-                @endif
-            </select>
-        </div> --}}
         <div class="form-group my-4">
             <label>Harga</label>
             <input type="number" name="harga" class="form-control my-2" value="{{ $dataMenu->harga }}" placeholder="88000">

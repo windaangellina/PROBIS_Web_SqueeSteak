@@ -18,6 +18,7 @@ class MenuListResources extends JsonResource
         return [
             "id"            => $this->id,
             "nama"          => $this->nama,
+            "url_foto"           => asset('storage/res/' . $this->kategori->folder . '/' . $this->url_foto_menu) . "?" . now()->timestamp,
             "harga"         => number_format($this->harga,0,",","."),
             "nama_kategori" => $this->kategori->nama,
             "created_at"    => $this->created_at->format('Y-m-d H:i:s'),

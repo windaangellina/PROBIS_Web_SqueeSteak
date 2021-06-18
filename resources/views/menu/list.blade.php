@@ -16,6 +16,7 @@
         <div class="card-body">
             Squee Steak menyediakan berbagai macam menu steaks, hidangan pendamping dan minuman.
         </div>
+        <div class="test" style="max-width: 200px; max-height: 200px"></div>
     </div>
     <div class="mb-4">
         @include('layouts.display-items.alert')
@@ -26,11 +27,21 @@
             Daftar Menu
         </div>
         <div class="card-body">
+            <div class="mt-3 mb-4">
+                Toggle kolom :
+                <a class="toggle-vis" data-column="0">Kategori</a> -
+                <a class="toggle-vis" data-column="1">Foto</a> -
+                <a class="toggle-vis" data-column="3">Harga</a> -
+                <a class="toggle-vis" data-column="4">Ditampilkan</a> -
+                <a class="toggle-vis" data-column="5">Ditambahkan pada</a> -
+                <a class="toggle-vis" data-column="6">Terakhir diubah pada</a></a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th class="text-center align-middle">Kategori</th>
+                            <th class="text-center align-middle">Foto</th>
                             <th class="text-center align-middle">Nama</th>
                             <th class="text-center align-middle">Harga</th>
                             <th class="text-center align-middle">Ditampilkan</th>

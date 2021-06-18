@@ -76,7 +76,7 @@
                 </a> --}}
                 <a class="nav-link" href="{{ route('admin.setting.view') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
-                    Pengaturan
+                    Ubah Password Aplikasi
                 </a>
                 @endif
             </div>

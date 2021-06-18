@@ -40,9 +40,12 @@ function ajaxListMenu(table){
                         domStatus = '<span class="text-success">Iya</span>';
                     }
 
+                    var domFoto = '<img id="fotoMenu" class="img-responsive w-100 mx-auto" style="max-width: 80px; max-height: 80px; object-fit:cover;" src="' + el.url_foto + '") }}">';
+
                     //add row ke datatables
                     table.row.add([
                         el.nama_kategori,
+                        domFoto,
                         el.nama,
                         el.harga,
                         domStatus,
@@ -71,11 +74,23 @@ function ajaxListMenu(table){
 $(document).ready(function() {
     var table = $("#dataTable").DataTable({
         columnDefs: [
-            { orderable: false, targets: 6 },
-            { className:'text-right', targets: [2] },
-            { className:'text-center', targets: [6] },
+            { orderable: false, targets: 7 },
+            { className:'text-right', targets: [3] },
+            { className:'text-center', targets: [1, 6, 7] },
+            { visible:false, targets: [0, 4, 5, 6]}
         ]
     });
+
+    // toggle column visibility
+    $('a.toggle-vis').on( 'click', function (e) {
+        e.preventDefault();
+
+        // Get the column API object
+        var column = table.column( $(this).attr('data-column') );
+
+        // Toggle the visibility
+        column.visible( ! column.visible() );
+    } );
 
     //tampilkan data
     ajaxListMenu(table);
