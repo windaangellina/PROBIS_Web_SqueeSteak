@@ -25,5 +25,7 @@ Route::prefix('/android')->group(function(){
     Route::post('/getMenu', [AndroidController::class, 'getMenu']);
     Route::post('/makeHeader', [AndroidController::class, 'makeHeader']);
     Route::post('/addItem', [AndroidController::class, 'addItem']);
+    Route::post('/showList', [AndroidController::class, 'showList']);
+    Route::post('/updateStatus', [AndroidController::class, 'changeStatusPesanan']);
 });
 

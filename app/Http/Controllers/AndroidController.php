@@ -6,6 +6,7 @@ use App\Models\DetailOrder;
 use App\Models\HeaderOrder;
 use App\Models\Menu;
 use App\Models\Kategori;
+use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,22 +18,7 @@ class AndroidController extends Controller
     // }
 
     function coba(){
-        $idOrder = DB::table('h_order')->where('kode_order','=',"INV2121042900001")->get();
-        $order = new DetailOrder();
-        $order->id_order = $idOrder['0']->id;
-        $order->id_menu = "1";
-        $order->status_diproses = 0;
-        $order->harga = 93000;
-        $order->jumlah = 2;
-        $order->subtotal = 93000 * 2;
-        $order->keterangan = "abcd";
-        $result = $order->save();
-        if($result){
-            dd("a");
-        }
-        else{
-            dd("n");
-        }
+        DB::table('d_order')->where('id_order','17')->update(['status_diproses' => '1']);
     }
 
     function ubahNoMeja(Request $request){
@@ -106,7 +92,7 @@ class AndroidController extends Controller
     function makeHeader(Request $request){
         $response = array();
         $hari = "INV" . date('yymd');
-        $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->get()->count() + 1;
+        $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->where('status_order','0')->get()->count() + 1;
         $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
         $response["code"] = 1;
         if($jumlah == 1){
@@ -132,11 +118,71 @@ class AndroidController extends Controller
         $order->status_diproses = 0;
         $order->harga = $request->harga;
         $order->jumlah = $request->jumlah;
-        $order->subtotal = $request->harga * $request->jumlah;
+        $order->subtotal = $request->subtotal;
         $order->keterangan = $request->keterangan;
         $order->save();
+        DB::table('h_order')->where('kode_order','=',$request->kode)->update(['total' => $idOrder['0']->total + $request->subtotal]);
+        $idOrder->save();
         $response["code"] = 1;
-        $response["message"] = "Request Berhasil";
+        $response["message"] = "Menu berhasil ditambahkan";
+        echo json_encode($response);
+    }
+
+    function showList(Request $request){
+        $response = array();
+        $hOrder = DB::table('h_order')->where('kode_order','=',$request->kode)->get();
+        $dOrder = DetailOrder::where('id_order',$hOrder['0']->id)->get();
+        if($request->status != 2){
+            $data = array();
+            for ($i=0; $i < count($dOrder); $i++) {
+                $menu = Menu::where('id',$dOrder[$i]->id_menu)->get();
+                $data[$i]['nama'] = $menu[0]->nama;
+                $data[$i]['jumlah'] = $dOrder[$i]->jumlah;
+                $data[$i]['subtotal'] = $dOrder[$i]->subtotal;
+            }
+            $response["code"] = 1;
+            $response["message"] = $data;
+        }
+        else{
+            $result = DB::table('h_order')->where('kode_order','=',$request->kode)->update(['status_order' => '2']);
+            if($result){
+                $resultDetail = DB::table('d_order')->where('id_order',$hOrder['0']->id)->update(['status_diproses' => '2']);
+                if($resultDetail){
+                    $response["code"] = 1;
+                    $response["message"] = "Perubahan Berhasil";
+                }
+                else{
+                    $response["code"] = 2;
+                    $response["message"] = "Perubahan Gagal";
+                }
+            }
+        }
+        echo json_encode($response);
+    }
+
+    function changeStatusPesanan(Request $request){
+        $response = array();
+        $hOrder = DB::table('h_order')->where('kode_order','=',$request->kode)->get();
+        $result = DB::table('h_order')->where('kode_order','=',$request->kode)->update(['status_order' => '1']);
+        if($result){
+            $resultDetail = DB::table('d_order')->where('id_order',$hOrder['0']->id)->update(['status_diproses' => '1']);
+            if($resultDetail){
+                $dOrder = DetailOrder::where('id_order',$hOrder['0']->id)->get();
+                $data = array();
+                for ($i=0; $i < count($dOrder); $i++) {
+                    $menu = Menu::where('id',$dOrder[$i]->id_menu)->get();
+                    $data[$i]['nama'] = $menu[0]->nama;
+                    $data[$i]['jumlah'] = $dOrder[$i]->jumlah;
+                    $data[$i]['subtotal'] = $dOrder[$i]->subtotal;
+                }
+                $response["code"] = 1;
+                $response["message"] = $data;
+            }
+            else{
+                $response["code"] = 2;
+                $response["message"] = "Perubahan Gagal";
+            }
+        }
         echo json_encode($response);
     }
 }
