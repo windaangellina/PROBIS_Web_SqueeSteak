@@ -18,7 +18,24 @@ class AndroidController extends Controller
     // }
 
     function coba(){
-        DB::table('d_order')->where('id_order','17')->update(['status_diproses' => '1']);
+        $response = array();
+        $hari = "INV" . date('Ymd');
+        $order = HeaderOrder::where('kode_order', 'like', '%'.$hari.'%')->latest()->first();
+        if($order->status_order != 3){
+            $kode = $order->kode_order;
+        }
+        else{
+            $substr = intval(substr($order->kode_order, -3)) + 1;
+            $kode = $hari . str_pad($substr,5,"0",STR_PAD_LEFT);
+            $new = new HeaderOrder();
+            $new->kode_order = $kode;
+            $new->nomor_meja = $request->meja;
+            $new->status_order = 0;
+            $new->save();
+        }
+        $response["code"] = 1;
+        $response["message"] = $kode;
+        echo json_encode($response);
     }
 
     function ubahNoMeja(Request $request){
@@ -90,21 +107,40 @@ class AndroidController extends Controller
     }
 
     function makeHeader(Request $request){
+        // $response = array();
+        // $hari = "INV" . date('Ymd');
+        // $jumlah = DB::table('h_order')->where('kode_order','like','%'.$hari.'%')->get()->count() + 1;
+        // $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
+        // $response["code"] = 1;
+        // if($jumlah == 1){
+        //     $order = new HeaderOrder();
+        //     $order->kode_order = $kode;
+        //     $order->nomor_meja = $request->meja;
+        //     $order->status_order = 0;
+        //     $order->save();
+        // }
+        // else{
+        //     $kode = $hari . str_pad($jumlah-1,5,"0",STR_PAD_LEFT);
+        // }
+        // $response["message"] = $kode;
+        // echo json_encode($response);
+
         $response = array();
         $hari = "INV" . date('Ymd');
-        $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->get()->count() + 1;
-        $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
-        $response["code"] = 1;
-        if($jumlah == 1){
-            $order = new HeaderOrder();
-            $order->kode_order = $kode;
-            $order->nomor_meja = $request->meja;
-            $order->status_order = 0;
-            $order->save();
+        $order = HeaderOrder::where('kode_order', 'like', '%'.$hari.'%')->latest()->first();
+        if($order->status_order != 3){
+            $kode = $order->kode_order;
         }
         else{
-            $kode = $hari . str_pad($jumlah-1,5,"0",STR_PAD_LEFT);
+            $substr = intval(substr($order->kode_order, -5)) + 1;
+            $kode = $hari . str_pad($substr,5,"0",STR_PAD_LEFT);
+            $new = new HeaderOrder();
+            $new->kode_order = $kode;
+            $new->nomor_meja = $request->meja;
+            $new->status_order = 0;
+            $new->save();
         }
+        $response["code"] = 1;
         $response["message"] = $kode;
         echo json_encode($response);
     }
