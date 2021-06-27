@@ -91,7 +91,7 @@ class AndroidController extends Controller
 
     function makeHeader(Request $request){
         $response = array();
-        $hari = "INV" . date('yyyymd');
+        $hari = "INV" . date('Ymd');
         $jumlah = DB::table('h_order')->where('kode_order','like',$hari.'%')->get()->count() + 1;
         $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
         $response["code"] = 1;
