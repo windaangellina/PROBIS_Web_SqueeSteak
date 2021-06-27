@@ -134,8 +134,7 @@ class AndroidController extends Controller
                 $kode = $order->kode_order;
             }
             else{
-                $substr = intval(substr($order->kode_order, -5)) + 1;
-                $kode = $hari . str_pad($substr,5,"0",STR_PAD_LEFT);
+                $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
                 $new = new HeaderOrder();
                 $new->kode_order = $kode;
                 $new->nomor_meja = $request->meja;
