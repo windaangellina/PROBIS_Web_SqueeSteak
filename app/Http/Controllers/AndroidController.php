@@ -127,7 +127,7 @@ class AndroidController extends Controller
 
         $response = array();
         $hari = "INV" . date('Ymd');
-        $order = HeaderOrder::where('kode_order', 'like', '%'.$hari.'%')->latest()->first();
+        $order = HeaderOrder::where('kode_order', 'like', '%'.$hari.'%')->where('nomor_meja', '=', $request->meja)->latest()->first();
         $jumlah = DB::table('h_order')->where('kode_order','like','%'.$hari.'%')->get()->count() + 1;
         if($order != null){
             if($order->status_order != 3){
