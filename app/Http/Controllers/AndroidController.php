@@ -128,18 +128,30 @@ class AndroidController extends Controller
         $response = array();
         $hari = "INV" . date('Ymd');
         $order = HeaderOrder::where('kode_order', 'like', '%'.$hari.'%')->latest()->first();
-        if($order->status_order != 3){
-            $kode = $order->kode_order;
+        $jumlah = DB::table('h_order')->where('kode_order','like','%'.$hari.'%')->get()->count() + 1;
+        if($order != null){
+            if($order->status_order != 3){
+                $kode = $order->kode_order;
+            }
+            else{
+                $substr = intval(substr($order->kode_order, -5)) + 1;
+                $kode = $hari . str_pad($substr,5,"0",STR_PAD_LEFT);
+                $new = new HeaderOrder();
+                $new->kode_order = $kode;
+                $new->nomor_meja = $request->meja;
+                $new->status_order = 0;
+                $new->save();
+            }
         }
         else{
-            $substr = intval(substr($order->kode_order, -5)) + 1;
-            $kode = $hari . str_pad($substr,5,"0",STR_PAD_LEFT);
+            $kode = $hari . str_pad($jumlah,5,"0",STR_PAD_LEFT);
             $new = new HeaderOrder();
             $new->kode_order = $kode;
             $new->nomor_meja = $request->meja;
             $new->status_order = 0;
             $new->save();
         }
+
         $response["code"] = 1;
         $response["message"] = $kode;
         echo json_encode($response);
